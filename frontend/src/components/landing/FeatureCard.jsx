@@ -8,7 +8,7 @@ const FeatureCard = ({
 }) => {
   return (
     <div 
-      className="animate-on-scroll opacity-0 neo-morphism p-6 hover-lift"
+      className="animate-on-scroll  neo-morphism p-6 hover-lift"
       style={{ animationDelay: `${(index + 1) * 100}ms` }}
     >
       <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">

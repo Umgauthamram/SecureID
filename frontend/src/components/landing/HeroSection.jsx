@@ -18,12 +18,12 @@ const HeroSection = () => {
             </span>
           </div>
           
-          <h1 className="opacity-0 animate-fade-in animate-delay-[200ms] hero-text mb-6">
+          <h1 className="opacity-0 animate-fade-in animate-delay-[200ms] hero-text mt-8">
             Secure Your Digital Identity with
-            <span className="text-gradient block mt-2">SecureID Technology</span>
+            <span className="text-gradient block mt-3">SecureID Technology</span>
           </h1>
           
-          <p className="opacity-0 animate-fade-in animate-delay-[400ms] text-lg md:text-xl text-muted-foreground mb-8 md:mb-12">
+          <p className=" animate-fade-in animate-delay-[400ms] text-lg md:text-xl text-muted-foreground mb-10 mt-16">
             A revolutionary platform that combines decentralized identifiers 
             and non-fungible tokens to give you complete control over your digital identity 
             and secure access to your files.
@@ -40,14 +40,6 @@ const HeroSection = () => {
                 Login
               </Button>
             </Link>
-          </div>
-        </div>
-        
-        {/* Hero Image */}
-        <div className="mt-16 opacity-0 animate-fade-in animate-delay-[800ms]">
-          <div className="relative rounded-xl overflow-hidden mx-auto max-w-4xl shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-blue-400/20 backdrop-blur-sm"></div>
-            
           </div>
         </div>
       </div>
