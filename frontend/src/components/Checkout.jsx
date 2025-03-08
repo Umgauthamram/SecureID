@@ -7,9 +7,9 @@ const Checkout = () => {
 
   const plans = [
     { name: "Free", price: 0, duration: "Forever", features: ["Basic Support", "Limited Access"] },
-    { name: "Monthly", price: 299, duration: "1 Month", features: ["15 Users", "Feature 1", "Feature 2", "Feature 3"] },
-    { name: "Quarterly", price: 799, duration: "3 Months", features: ["15 Users", "Feature 1", "Feature 2", "Feature 3"] },
-    { name: "Yearly", price: 2999, duration: "12 Months", features: ["Unlimited Users", "All Features", "Priority Support"] },
+    { name: "Monthly", price: 150, duration: "1 Month", features: ["Increased Storage", "Early Access", "Priority Support"] },
+    { name: "Quarterly", price: 300, duration: "3 Months", features: ["Customizable Themes", " Offline Access ", "Multi-Device Sync"] },
+    { name: "Yearly", price: 600, duration: "12 Months", features: ["Unlimited Cloud Storage", "Personalized AI Recommendations", "Discounts & Special Offers"] },
   ];
 
   const handlePayment = async (plan) => {

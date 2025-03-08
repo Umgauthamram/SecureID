@@ -88,7 +88,7 @@ const Settings = () => {
     }
   };
   const handleChangePlan = () => {
-    navigate('/subscription');
+    navigate('/checkout');
   };
   const handleCancelSubscription = async () => {
     if (window.confirm('Are you sure you want to cancel your subscription?')) {
