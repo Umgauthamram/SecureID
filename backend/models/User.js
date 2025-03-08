@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   },
   phone: {
-    type: String,
+    type: Number,
     required: true,
     unique: true,
     match: /^[0-9]{10}$/,
@@ -26,13 +26,13 @@ const userSchema = new mongoose.Schema({
     minlength: 6
   },
   passcode: {
-    type: String,
+    type: Number ,
     required: true,
-    minlength: 6,
+    minlength: 4,
     maxlength: 6
   },
   passphrase: {
-    type: String, 
+    type: [String], 
     required: true
   },
   metamaskAddress: {
@@ -43,38 +43,5 @@ const userSchema = new mongoose.Schema({
 });
 
 
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password') && !this.isModified('passcode') && !this.isModified('passphrase')) {
-    return next();
-  }
-
-  const salt = await bcrypt.genSalt(10);
-
-  if (this.isModified('password')) {
-    this.password = await bcrypt.hash(this.password, salt);
-  }
-
-  if (this.isModified('passcode')) {
-    this.passcode = await bcrypt.hash(this.passcode, salt);
-  }
-
-  if (this.isModified('passphrase')) {
-    this.passphrase = await bcrypt.hash(this.passphrase, salt);
-  }
-
-  next();
-});
-
-userSchema.methods.comparePassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
-
-userSchema.methods.comparePasscode = async function (enteredPasscode) {
-  return await bcrypt.compare(enteredPasscode, this.passcode);
-};
-
-userSchema.methods.comparePassphrase = async function (enteredPassphrase) {
-  return await bcrypt.compare(enteredPassphrase, this.passphrase);
-};
 
 module.exports = mongoose.model('User', userSchema);

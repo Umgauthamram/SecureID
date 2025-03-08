@@ -36,7 +36,6 @@ const FileCard = ({ file }) => {
 
   const handleVerifyDID = () => {
     setIsLoading(true);
-    // Simulate verification
     setTimeout(() => {
       setIsVerified(true);
       setIsLoading(false);
@@ -44,7 +43,6 @@ const FileCard = ({ file }) => {
   };
 
   const handleDownload = () => {
-    // In a real app, this would download the file using the CID
     console.log('Downloading file with CID:', file.cid);
   };
 
@@ -87,7 +85,7 @@ const FileCard = ({ file }) => {
             size="sm"
             isLoading={isLoading}
           >
-            Verify DID-NFT
+            Verify DID
           </Button>
         ) : (
           <Button 

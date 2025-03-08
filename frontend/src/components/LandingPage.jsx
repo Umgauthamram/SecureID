@@ -4,6 +4,8 @@ import FeaturesSection from './landing/FeaturesSection';
 import CTASection from './landing/CTASection';
 import Footer from './landing/Footer';
 import { useIntersectionObserver } from './landing/useIntersectionObserver';
+import Lightning from './animations/Lightning';
+
 
 const LandingPage = () => {
   const heroRef = useRef(null);

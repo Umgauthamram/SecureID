@@ -5,12 +5,10 @@ import Button from '../components/Button';
 import Header from '../components/Header';
 
 const Settings = () => {
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passcode, setPasscode] = useState('');
   const [message, setMessage] = useState('');
-
   const [subscription, setSubscription] = useState({
     plan: '',
     duration: '',
@@ -18,7 +16,9 @@ const Settings = () => {
   });
   const [recoveryPassphrase, setRecoveryPassphrase] = useState('');
   const [viewPassphrase, setViewPassphrase] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -48,13 +48,15 @@ const Settings = () => {
     };
     fetchProfile();
   }, []);
+
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
-      const res = await fetch('/api/user/update-profile', {
+      const res = await fetch('/api/user/updateprofile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password, passcode }),
+        body: JSON.stringify({ username}),
       });
       const data = await res.json();
       if (res.ok) {
@@ -65,8 +67,11 @@ const Settings = () => {
     } catch (error) {
       console.error(error);
       setMessage('Profile update failed.');
+    } finally {
+      setIsLoading(false);
     }
   };
+
   const handleDeleteAccount = async () => {
     if (window.confirm('Are you sure you want to delete your account? This action is irreversible.')) {
       try {
@@ -87,11 +92,14 @@ const Settings = () => {
       }
     }
   };
+
   const handleChangePlan = () => {
     navigate('/subscription');
   };
+
   const handleCancelSubscription = async () => {
     if (window.confirm('Are you sure you want to cancel your subscription?')) {
+      setIsLoading(true);
       try {
         const res = await fetch('/api/subscription/cancel', {
           method: 'POST',
@@ -107,18 +115,24 @@ const Settings = () => {
       } catch (error) {
         console.error(error);
         setMessage('Failed to cancel subscription.');
+      } finally {
+        setIsLoading(false);
       }
     }
+  };
+
+  const handleLogout = () => {
+
+    console.log('Logging out...');
+    navigate('/login');
   };
 
   return (
     <div className="min-h-screen bg-white text-gray-900 flex flex-col items-center py-10 relative">
       <div
         className="absolute top-5 left-5 flex items-center space-x-2 cursor-pointer"
-        onClick={() => navigate("/")}
-      >
-        {/* <Fingerprint size={40} className="text-orange-500" />
-        <span className="text-xl font-bold">SecureID</span> */}
+        onClick={() => navigate("/")} >
+
       </div>
       <Header />
       <h1 className="text-4xl font-extrabold mt-20 mb-6">Account Settings</h1>
@@ -130,37 +144,34 @@ const Settings = () => {
           <h2 className="text-2xl font-bold mb-4">Profile Settings</h2>
           <form onSubmit={handleUpdateProfile} className="space-y-3 text-left">
             <div className="space-y-1">
-              <label htmlFor="username" className="text-sm font-medium">Username</label>
-              <input 
-                id="username" 
-                type="text" 
-                value={username} 
-                onChange={(e) => setUsername(e.target.value)} 
-                className="w-full px-3 py-2 border rounded-md" 
-              />
+              <p className="text-sm font-medium text-gray-600">Username</p>
+              <p className="w-full h-10 px-3 py-2 border rounded-md bg-white text-black">
+                
+              </p>
             </div>
             <div className="space-y-1">
               <label htmlFor="password" className="text-sm font-medium">Password</label>
-              <input 
-                id="password" 
-                type="password" 
-                placeholder="New Password" 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
-                className="w-full px-3 py-2 border rounded-md" 
+              <input
+                id="password"
+                type="password"
+                placeholder="New Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-3 py-2 border rounded-md"
               />
             </div>
             <div className="space-y-1">
               <label htmlFor="passcode" className="text-sm font-medium">Passcode</label>
-              <input 
-                id="passcode" 
-                type="password" 
-                value={passcode} 
-                onChange={(e) => setPasscode(e.target.value)} 
-                className="w-full px-3 py-2 border rounded-md" 
+              <input
+                id="passcode"
+                type="password"
+                value={passcode}
+                placeholder='New Passcode'
+                onChange={(e) => setPasscode(e.target.value)}
+                className="w-full px-3 py-2 border rounded-md"
               />
             </div>
-            <Button type="submit" fullWidth>Save Changes</Button>
+            <Button type="submit" fullWidth isLoading={isLoading}>Save Changes</Button>
           </form>
           <div className="mt-4">
             <Button type="button" fullWidth variant="destructive" onClick={handleDeleteAccount}>
@@ -179,7 +190,7 @@ const Settings = () => {
             <Button type="button" onClick={handleChangePlan}>
               Change Plan
             </Button>
-            <Button type="button" variant="destructive" onClick={handleCancelSubscription}>
+            <Button type="button" variant="destructive" onClick={handleCancelSubscription} isLoading={isLoading}>
               Cancel Plan
             </Button>
           </div>
@@ -199,6 +210,11 @@ const Settings = () => {
           <div className={`mt-2 bg-white p-4 rounded-md font-mono text-sm break-words border ${!viewPassphrase ? 'blur-sm select-none' : ''}`}>
             {recoveryPassphrase || "apple banana cherry diamond elephant forest guitar harvest island jaguar kangaroo lemon mountain"}
           </div>
+        </div>
+        <div className='mt-4 flex justify-center'>
+          <button onClick={handleLogout} className="px-4 py-2 bg-red-600 text-white rounded">
+            Logout
+          </button>
         </div>
       </div>
     </div>

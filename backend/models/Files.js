@@ -11,5 +11,5 @@ const FileSchema = new mongoose.Schema({
   storedPasswordHash: { type: String, required: true }
 });
 
-// Export File Model
+
 module.exports = mongoose.model("File", FileSchema);

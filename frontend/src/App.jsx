@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Checkout from './components/Checkout';
 import Settings from './pages/Settings';
+import { Navbar } from '@nextui-org/react';
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/navbar" element={<Navbar />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

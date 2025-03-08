@@ -26,17 +26,14 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'Password must be at least 6 characters long.' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const hashedPasscode = await bcrypt.hash(passcode, 10);
-    const hashedPassphrase = await bcrypt.hash(passphrase.join(' '), 10);
-
+   
     const newUser = new User({
       username,
       email,
       phone,
-      password: hashedPassword,
-      passcode: hashedPasscode,
-      passphrase: hashedPassphrase, 
+      password,
+      passcode,
+      passphrase, 
       metamaskAddress
     });
 
@@ -61,21 +58,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials.' });
     }
 
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
-    if (!isPasswordMatch) {
-      return res.status(400).json({ message: 'Invalid credentials.' });
-    }
-
-    const isPasscodeMatch = await bcrypt.compare(passcode, user.passcode);
-    if (!isPasscodeMatch) {
-      return res.status(400).json({ message: 'Invalid credentials.' });
-    }
-
-    const isPassphraseMatch = await bcrypt.compare(passphrase.join(' '), user.passphrase);
-    if (!isPassphraseMatch) {
-      return res.status(400).json({ message: 'Invalid credentials.' });
-    }
-
+   
     const token = jwt.sign(
       { userId: user._id, email: user.email, metamaskAddress: user.metamaskAddress },
       process.env.JWT_SECRET,
