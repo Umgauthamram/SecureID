@@ -1,20 +1,19 @@
 require('dotenv').config();
 const { ethers } = require('ethers');
 
-// Load API Key from .env
-const ALCHEMY_API_KEY = process.env.ALCHEMY_API_KEY;
+// ✅ Infura API URL
+const INFURA_API_URL = "https://mainnet.infura.io/v3/23d76350198942149f2c1a4aa635b3d8";
 
-// Validate API Key
-if (!ALCHEMY_API_KEY) {
-    console.error("❌ Alchemy API Key is missing! Check your .env file.");
+// 🔴 Validate API URL
+if (!INFURA_API_URL) {
+    console.error("❌ Infura API URL is missing! Check your .env file.");
     process.exit(1);
 }
 
-// Network Configuration
-const network = 'homestead'; // Ethereum Mainnet
-const provider = new ethers.providers.AlchemyProvider(network, ALCHEMY_API_KEY);
+// ✅ Network Configuration
+const provider = new ethers.providers.JsonRpcProvider(INFURA_API_URL);
 
-// ✅ Function to Get Latest Block Number (Web3 Equivalent)
+// ✅ Function to Get Latest Block Number
 async function getLatestBlockNumber() {
     try {
         const blockNumber = await provider.getBlockNumber();
@@ -24,7 +23,7 @@ async function getLatestBlockNumber() {
     }
 }
 
-// ✅ Function to Get ETH Balance (Web3 Equivalent)
+// ✅ Function to Get ETH Balance
 async function getEthBalance(address) {
     try {
         const balance = await provider.getBalance(address);
@@ -34,7 +33,7 @@ async function getEthBalance(address) {
     }
 }
 
-// ✅ Function to Send ETH (Web3 Equivalent)
+// ✅ Function to Send ETH
 async function sendEth(privateKey, to, amountInEth) {
     try {
         const wallet = new ethers.Wallet(privateKey, provider);
@@ -50,7 +49,7 @@ async function sendEth(privateKey, to, amountInEth) {
     }
 }
 
-// ✅ Function to Get Transaction Details (Web3 Equivalent)
+// ✅ Function to Get Transaction Details
 async function getTransaction(txHash) {
     try {
         const tx = await provider.getTransaction(txHash);
@@ -60,7 +59,7 @@ async function getTransaction(txHash) {
     }
 }
 
-// ✅ Function to Get Gas Price (Web3 Equivalent)
+// ✅ Function to Get Gas Price
 async function getGasPrice() {
     try {
         const gasPrice = await provider.getGasPrice();
@@ -80,3 +79,5 @@ getGasPrice();
 
 // 🔴 Uncomment to check a transaction
 // getTransaction("YOUR_TX_HASH");
+
+module.exports = provider;
