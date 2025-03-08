@@ -138,9 +138,6 @@ const SignUpForm = () => {
               {copied ? "Copied!" : <>Copy <Copy /></>}
             </Button>
           </div>
-          <p className="text-xs mt-5 text-center text-muted-foreground">
-            This will be used as an additional security factor.
-          </p>
           <div className="mt-6">
             <Button fullWidth type="button" onClick={() => setStep(3)}>
               Continue
@@ -150,7 +147,6 @@ const SignUpForm = () => {
       ) : (
         <div>
           <h2 className="text-center font-medium text-lg">Verify Your Passphrase</h2>
-          <p className="text-center text-sm text-muted-foreground">Enter the correct words in the given positions.</p>
           <div className="space-y-5 mt-4">
             {verificationWords.map(({ index }) => (
               <div key={index} className="flex flex-col">
