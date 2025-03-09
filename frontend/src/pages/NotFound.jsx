@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { Button } from "@/components/ui/Button.jsx";
+import { Button } from "../components/Button";
 import PageTransition from "../components/layout/PageTransition";
 import { Home } from "lucide-react";
 
