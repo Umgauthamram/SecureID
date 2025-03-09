@@ -2,9 +2,8 @@ const axios = require("axios");
 const FormData = require("form-data");
 
 /**
- * Upload file to Filebase IPFS
- * @param {object} file - File object from multer
- * @returns {string} IPFS URI
+ * @param {object} file 
+ * @returns {string}
  */
 const uploadToIPFS = async (file) => {
   try {

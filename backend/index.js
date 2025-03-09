@@ -32,7 +32,9 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     if (!file) return res.status(400).json({ error: "File is required" });
 
     const ipfsHash = await uploadToIPFS(file);
+    const timestamp = new Date().toISOString();
     const txHash = await storeOnBlockchain(email, ipfsHash);
+    
 
     const newFile = new File({ email, ipfsHash, txHash });
     await newFile.save();
